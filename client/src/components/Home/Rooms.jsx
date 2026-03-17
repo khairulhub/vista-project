@@ -5,9 +5,11 @@ import Heading from '../Shared/Heading'
 import LoadingSpinner from '../Shared/LoadingSpinner'
 import { useQuery } from '@tanstack/react-query'
 import useAxiosCommon from '../../hooks/useAxiosCommon'
+import { useSearchParams } from 'react-router-dom'
 
 const Rooms = () => {
   const axiosCommon = useAxiosCommon()
+  const [params, setParams] = useSearchParams()
   // const [rooms, setRooms] = useState([])
   // const [loading, setLoading] = useState(false)
   //./rooms.json
