@@ -7,10 +7,11 @@ import LoadingSpinner from '../Shared/LoadingSpinner'
 const Rooms = () => {
   const [rooms, setRooms] = useState([])
   const [loading, setLoading] = useState(false)
+  //./rooms.json
 
   useEffect(() => {
     setLoading(true)
-    fetch(`./rooms.json`)
+    fetch(`http://localhost:8000/rooms`)
       .then(res => res.json())
       .then(data => {
         setRooms(data)
