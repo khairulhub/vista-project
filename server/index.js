@@ -47,6 +47,11 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
+    //make the database and make the rooms collection to store the rooms data
+    const roomsCollection = client.db('stayvista').collection('rooms')
+
+
+
     // auth related api
     app.post('/jwt', async (req, res) => {
       const user = req.body
@@ -76,6 +81,40 @@ async function run() {
         res.status(500).send(err)
       }
     })
+
+    // get all rooms data from database
+    app.get('/rooms', async (req, res) => {
+      const category = req.query.category   //here category will come from client side as query parameter and we will use it to filter the rooms data based on category. if category is not provided then we will return all rooms data. if category is provided then we will return only those rooms which belong to that category. if category is provided as null then we will return all rooms data because in our client side code we are sending category as null when user click on All categories. so here we will check if category is null then we will return all rooms data otherwise we will return only those rooms which belong to that category.
+      //here we find the category will be string and value in null 
+      let query = {}
+      if (category && category !== 'null') {
+        query.category = category
+      }
+      try {
+        const rooms = await roomsCollection.find(query).toArray()
+        res.send(rooms)
+      } catch (error) {
+        res.status(500).send(error)
+      }
+    })
+
+    // get single room data by id
+    app.get('/room/:id', async (req, res) => {
+      const id = req.params.id
+      const query = { _id: new ObjectId(id) }
+      try {
+        const room = await roomsCollection.findOne(query)
+        if (!room) {
+          return res.status(404).send({ message: 'Room not found' })
+        }
+        //send the room data as response
+        res.send(room)
+      } catch (error) {
+        res.status(500).send(error)
+      }
+    })  
+
+
 
     // Send a ping to confirm a successful connection
     await client.db('admin').command({ ping: 1 })

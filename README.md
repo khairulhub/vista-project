@@ -74,3 +74,21 @@
 - [@stripe/stripe-js](https://www.npmjs.com/package/@stripe/stripe-js)
 - [firebase](https://www.npmjs.com/package/firebase)
 - [react-google-charts](https://www.react-google-charts.com/examples/line-chart)
+
+
+## usenavigate useparams querystring done in category file name categorybox
+ const [params, setParams] = useSearchParams() //thake the current query parameters from the url and setParams is used to update the query parameters in the url. we will use this to update the category query parameter in the url when user click on the category box. so that we can filter the rooms data based on the category query parameter in the url. for example when user click on the beach category box then we will update the url to /?category=beach and then we can filter the rooms data based on the category query parameter in the url. so here we will check if category query parameter is present in the url then we will filter the rooms data based on that category otherwise we will return all rooms data.
+  const category = params.get('category') 
+
+  const navigate = useNavigate()
+  const handleClick = ()=>{
+    let currentQuery = {category: label}
+    const url = queryString.stringifyUrl({
+      url: '/',
+      query: currentQuery
+    })
+    // console.log(url);
+    // console.log(url);
+    navigate(url)
+    
+  }
