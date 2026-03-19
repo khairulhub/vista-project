@@ -92,3 +92,20 @@
     navigate(url)
     
   }
+
+  ### Documentation 
+  1. clone the stater template 
+  2. setup firebase and mongodb atlas in server site=> .env and client => .env.local 
+  3. create rooms collection and set it in index.jsx and save fake data on atlas 
+  4. create rooms route and get the data from collection and show the data in client site
+  5. implement tanstack query rooms.jsx and axois common hook create for create url.
+  6. create roomsdetals api by using id index.jsx server site
+  7. show the data in roomdetails.jsx in client site by using tanstack query 
+  8. setup category page 
+  - 8.1. crate onclick function with query
+  - 8.2. set the query in url 
+  - 8.3. take the url data by params= useSearchParams() and show the data in rooms.jsx 
+  9. signup with name email image and password with imagebb  then done signup with google
+  10. login done by usng email pass with google signin then done reset password.
+  11. setup date in room reservation 
+
