@@ -98,6 +98,14 @@ async function run() {
       }
     })
 
+
+    //save a single room data in database
+    app.post('/room', async (req, res) =>{
+      const roomData = req.body
+      const result = await roomsCollection.insertOne(roomData)
+      res.send(result)
+    })
+
     // get single room data by id
     app.get('/room/:id', async (req, res) => {
       const id = req.params.id
@@ -116,6 +124,18 @@ async function run() {
 
 
 
+    // get all rooms data for host by email
+    app.get('/my-listings/:email', async (req, res) => {
+      const email = req.params.email
+      
+      let query = {'host.email': email}
+     const result = await roomsCollection.find(query).toArray()
+     res.send(result)
+    })
+
+
+
+
     // Send a ping to confirm a successful connection
     await client.db('admin').command({ ping: 1 })
     console.log(
@@ -125,6 +145,18 @@ async function run() {
     // Ensures that the client will close when you finish/error
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 run().catch(console.dir)
 
 app.get('/', (req, res) => {
